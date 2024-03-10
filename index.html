@@ -2,10 +2,131 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				box-sizing: border-box;
+			}
+
+			.container {
+				width: 100%;
+				height: 100vh;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.left-box {
+				width: 100px;
+				height: 56px;
+				background: red;
+				display: flex;
+				align-items: center;
+			}
+
+			.center-box {
+				background: pink;
+				max-width: 300px;
+				flex-grow: 1;
+				height: 56px;
+				margin: 0 20px;
+			}
+
+			/* abbxon */
+			.small-box {
+				width: 56px;
+				height: 56px;
+				background: green;
+				align-items: center;
+				justify-content: center;
+				display: flex;
+			}
+
+			.small-box img {
+				width: 32px;
+				height: 32px;
+				background: blue;
+				border-radius: 16px;
+			}
+			.small-box: hover {
+				background: gray;
+			}
+
+			/* samandar */
+			.small-box2 {
+				width: 56px;
+				height: 56px;
+				background: orange;
+				justify-content: center;
+				align-items: center;
+				display: flex;
+			}
+
+			.small-box2 img {
+				width: 24px;
+				height: 24px;
+				background: white;
+				align-items: center;
+				border-radius: 12px;
+			}
+
+			.small-box2:hover {
+				background: gray;
+			}
+
+			/* Javlon */
+			.small-box3 {
+				display: flex;
+				width: 56px;
+				height: 56px;
+				background: blue;
+				justify-content: center;
+				align-items: center;
+			}
+			.small-box3 img:hover {
+				background: gray;
+			}
+			.small-box3 img {
+				width: 24px;
+				height: 24px;
+				border-radius: 12px;
+				background: white;
+				padding: 2px;
+			}
+
+			.right-box {
+				display: flex;
+				width: 200px;
+				height: 56px;
+				background: skyblue;
+				justify-content: end;
+			}
+		</style>
 	</head>
+
 	<body>
-		ls-uzbek2
+		<div class="container">
+			<div class="left-box">
+				<img src="youtube.svg" />
+			</div>
+			<div class="center-box">SEARCH</div>
+
+			<div class="right-box">
+				<div class="small-box3">
+					<img src="video.svg" />
+				</div>
+
+				<div class="small-box2">
+					<img src="bell.svg" />
+				</div>
+
+				<div class="small-box">
+					<img src="tom.jpeg" />
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
