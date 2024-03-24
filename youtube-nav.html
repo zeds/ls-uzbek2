@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			* {
+			  padding: 0;
+			  margin: 0;
+			  box-sizing: border-box;
+			}
+
+			nav {
+			  width: ;
+			  240px;
+			  padding: 12px;
+			}
+
+			li {
+			  height: 40px;
+			  width: 180px;
+			  display: flex;
+			  align-items: center;
+			  list-style: none;
+			  font-size: 14px;
+			  padding: 0 12px;
+
+			}
+
+			li:hover {
+			  background: #f2f2f2;
+			  border-radius: 10px;
+			}
+
+			li img {
+			  height: 24px;
+			  margin-right: 24px;
+			}
+
+			/* nav li: hover {
+			  background: #f2f2f2;
+			  cursor: pointer;
+			} */
+
+			.line {
+			  width: 216px;
+			  background: red;
+			  border: 0.5px solid #e5e5e5;
+			  margin: 10px 0;
+			}
+
+			a {
+			  text-decoration: none;
+			}
+
+			.mypage {
+			  padding: 0 8px 0 0;
+			}
+
+			/* @media (width < 1300px){ */
+			@media (width < 600px) {
+			  li {
+			    flex-direction: column;
+			  }
+
+
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav>
+			<ul>
+				<li><img src="./images/home.svg" />ホーム</li>
+				<li><img src="./images/short.svg" />ショート</li>
+				<li><img src="./images/subchanel.svg" /> 登録チャンネル</li>
+				<li><img src="./images/music.svg" />YouTube Music</li>
+				<li><img src="./images/music2.svg" />YouTube Music</li>
+				<div class="line"></div>
+				<li>
+					<div class="mypage">マイページ</div>
+					<img src="./images/right-arrow.svg" />
+				</li>
+
+				<li><img src="./images/looked.svg" />履歴</li>
+				<li><img src="./images/my-chanel.svg" /> My Chanel</li>
+				<li><img src="./images/my-video.svg" /></li>
+				<li><img src="./images/download.svg" />オフライン</li>
+				<li><img src="./images/down-arrow.svg" />もっと見る</li>
+			</ul>
+		</nav>
+	</body>
+</html>
