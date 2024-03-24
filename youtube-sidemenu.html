@@ -4,6 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+			rel="stylesheet"
+		/>
+
 		<title>Document</title>
 		<style>
 			* {
@@ -11,12 +18,19 @@
 				margin: 0;
 				box-sizing: border-box;
 			}
+			body {
+				font-family: "Roboto", sans-serif;
+				font-size: 20px;
+			}
 
 			nav {
 				width: 240px;
 				padding: 12px;
 			}
-
+			nav:hover {
+				overflow-x: hidden;
+				overflow-y: scroll;
+			}
 			li {
 				height: 40px;
 				width: 204px;
@@ -30,18 +44,16 @@
 			li:hover {
 				background: #f2f2f2;
 				border-radius: 10px;
+				cursor: pointer;
 			}
 
 			li img {
 				height: 24px;
 				margin-right: 24px;
 			}
-
-			/* nav li: hover {
-      background: #f2f2f2;
-      cursor: pointer;
-    } */
-
+			.homehover {
+				background: #f2f2f2;
+			}
 			.line {
 				width: 216px;
 				background: red;
@@ -73,7 +85,6 @@
 					flex-direction: column;
 					font-size: 10px;
 					font-family: Arial, sans-serif;
-					overflow: scroll;
 				}
 
 				.text {
