@@ -11,49 +11,64 @@
 				grid-template-columns: 1fr 1fr 1fr 1fr;
 				gap: 10px;
 			}
+
+			.article-container {
+				/* background: orange; */
+			}
+
 			.article-container img {
 				width: 100%;
 				border-radius: 15px;
 			}
+
 			.description {
 				display: flex;
 			}
+
 			.description img {
 				border-radius: 18px;
 				width: 36px;
 				height: 36px;
 			}
+
 			.message {
 				display: none;
 			}
+
 			/* レスポンシブ */
-			@media (0px <= width < 680px) {
+			@media (0px <=width < 680px) {
 				.grid-container {
 					grid-template-columns: 1fr;
 				}
 			}
-			@media (680px <= width < 1100px) {
+
+			@media (680px <=width < 1100px) {
 				.grid-container {
 					grid-template-columns: 1fr 1fr;
 				}
+
 				.message {
 					display: block;
 					background: red;
 				}
 			}
-			@media (1100px <= width < 1500px) {
+
+			@media (1100px <=width < 1500px) {
 				.grid-container {
 					grid-template-columns: 1fr 1fr 1fr;
 				}
 			}
-			@media (1500px <= width) {
+
+			@media (1500px <=width) {
 				.grid-container {
 					grid-template-columns: 1fr 1fr 1fr 1fr;
 				}
 			}
 		</style>
 	</head>
+
 	<body>
+		<div class="message">680px <= width < 1100px</div>
 		<div class="grid-container">
 			<div class="article-container">
 				<img src="./images/handstand.webp" />
