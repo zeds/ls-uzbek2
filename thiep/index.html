@@ -1,11 +1,749 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-	</head>
-	<body>
-		Hallo
-	</body>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet"
+    />
+
+    <title>Document111</title>
+    <style>
+     * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    li {
+	    list-style: none;
+    }
+    a {
+        text-decoration: none;
+    }
+    body {
+      font-family: "Roboto", sans-serif;
+      font-size: 20px;
+      
+    }
+    .container {
+	    width: 100%;
+        height: 100vh;
+    }
+    header {
+      position: fixed    ;
+      z-index: 3;
+      height: 56px;
+      display: grid;
+      grid-template-columns: 169px 1fr 156px;
+      align-items: center;
+      padding: 0 16px;
+      gap: 10px;
+      background-color: white;
+    }
+
+    .logo {
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .burger {
+      width: 24px;
+      height: 24px;
+      padding: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .burger:hover {
+      background: #f2f3f3;
+    }
+
+    .burger img {
+      height: 24px;
+    }
+
+    .logo-img {
+      width: 90px;
+      height: 56px;
+      padding: 18px 14px 18px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-img img {
+      height: 20px;
+    }
+
+    .search {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .search input {
+      max-width: 515px;
+      width: 80%;
+      height: 44px;
+      border-radius: 20px 0 0 20px;
+      border: solid 1px rgb(228 225 225);
+      padding-left: 17px;
+    }
+
+    .search-button {
+      height: 44px;
+      width: 64px;
+      aspect-ratio: 1/0.75;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      border-radius: 0 20px 20px 0;
+      border: solid 1px rgb(228 225 225);
+      border-left: none;
+      background: #f8f8f8;
+    }
+
+    .search button:hover {
+      background: #d0d0d0;
+      cursor: pointer;
+    }
+
+    .search button:hover .tooltip {
+      visibility: visible;
+      background-color: #686868;
+      position: absolute;
+    }
+
+    .mic {
+      aspect-ratio: 1/1;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background: #f2f3f3;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 14px;
+      position: relative;
+    }
+
+    .mic:hover {
+      background: #d9d9d9;
+      cursor: pointer;
+    }
+
+    .mic:hover .tooltip {
+      visibility: visible;
+      position: absolute;
+    }
+
+    .profile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .video {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .video:hover {
+      border-radius: 20px;
+      background: #d9d9d9;
+      cursor: pointer;
+    }
+
+    .video:hover .tooltip {
+      visibility: visible;
+      position: absolute;
+    }
+
+    .bell {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .bell:hover {
+      background: #d9d9d9;
+      cursor: pointer;
+      border-radius: 20px;
+    }
+
+    .bell:hover .tooltip {
+      visibility: visible;
+      position: absolute;
+    }
+
+    .avatar {
+      width: 60px;
+      height: 34px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .avatar img {
+      height: 100%;
+      border-radius: 16px;
+    }
+
+    .tooltip {
+      padding: 0 4px;
+      width: 70px;
+      height: 30px;
+      color: white;
+      border-radius: 5px;
+      background: gray;
+      position: absolute;
+      bottom: -45px;
+      left: 5px;
+      visibility: hidden;
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      white-space: nowrap;
+      font-size: 0.8rem;
+      line-height: 1.3;
+    }
+    /* sidemenu */
+    nav {
+        margin-top: 56px;
+        height: 100%;
+        position: fixed;
+        z-index: 15;
+        width: 240px;
+        padding: 12px;
+        /* width: auto; */
+    }
+    nav:hover{
+        /* overflow-x: hidden; */
+        overflow: scroll;
+        
+    }
+    
+     nav li {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        list-style: none;
+
+        width: 204px;
+        gap: 24px;
+        margin-left: 10px;
+        padding: 0 12px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 10px;
+        position: relative;
+    }
+
+     nav li:hover {
+        background: #f2f2f2;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    li img {
+        height: 24px;
+        margin-right: 24px;
+    }
+    .home:hover {
+        background: #f2f2f2;
+    }
+    .line {
+        width: 216px;
+        background: red;
+        border: 0.5px solid #e5e5e5;
+        margin: 10px 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+    /* nagination */
+    .tag_container {
+        position: fixed;
+        z-index: 3;
+        top: 56px;
+        height: 56px;
+        width: 100%;
+        padding-left: 240px;
+        background: white;
+        display: grid;
+    }
+    .tag_list {
+        display: flex;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: none;
+        -ms-overflow-style: none;
+        overflow-x: scroll;
+    }
+    .tag {
+        flex: 0 0 auto;
+        margin-right: 10px;
+        background: #f2f2f2;
+        font-weight: 500;
+        font-size: 14px;
+        color: #0f0f0f;
+        margin: 12px 12px 12px 0;
+        padding: 5px 12px;
+        border-radius: 8px;
+        height: 32px;
+        line-height: 23px;
+    }
+    .tag:hover {
+        cursor: pointer;
+        background: rgba(179, 179, 179, 0.8);
+    }
+    main {
+        display: flex;
+        width: auto;
+        /* position: absolute; */
+    }
+    .grid-container {
+    	padding-left: 240px;
+        padding-right: 20px;
+        padding-top: 120px;
+        height: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+    }
+
+    .article {
+        width: 100%;
+      aspect-ratio: 3/2.6;
+    }
+    
+    .article img {
+      width: 100%;
+      border-radius: 10px;
+      margin-right: 8px;
+    }
+    
+    .article img:hover {
+      cursor: pointer;
+    }
+    
+    .description {
+      display: flex;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+    
+    .description img {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      aspect-ratio: 1/1;
+    }
+    
+   
+
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgb(15, 15, 15);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .author {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgb(96, 96, 96);
+    }
+
+    .author:hover {
+      color: rgb(15, 15, 15);
+      cursor: pointer;
+      /* background: red; */
+    }
+    
+    .statistics {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgb(96, 96, 96);
+    }
+
+    .timescore {
+      bottom: 10px;
+      right: 8px;
+      font-size: 12px;
+      background: black;
+      color: white;
+      position: absolute;
+      border-radius: 5px;
+      padding: 3px;
+    }
+
+    .timestatus {
+      position: relative;
+    }
+
+
+    @media (width < 648px) {
+    .search input  {
+        display: none;
+    }
+    .search-button{
+        border-radius: 21px;
+        width:  44px;
+    }
+	.grid-container {
+		grid-template-columns: 1fr;
+        padding-left: 20px;
+	}
+	nav {
+		display: none;
+		
+	}
+	
+
+	.tag_container {
+		padding-left: 20px;
+	}
+	.search_container {
+		margin: 0 2rem 0 1rem;
+	}
+}
+@media (648px <= width < 768px) {
+	.grid-container {
+		grid-template-columns: 1fr 1fr;
+        padding-left: 20px;
+	}
+
+	.tag_container {
+		padding-left: 20px;
+	}
+	nav {
+		display: none;
+	}
+}
+@media (768px <= width < 1024px) {
+	.grid-container {
+		grid-template-columns: 1fr 1fr;
+	}
+	.grid-container {
+		padding-left: 100px;
+	}
+    .secondary{
+        display: none;
+    }
+	.tag_container {
+		padding-left: 100px;
+	}
+	nav li {
+		flex-direction: column;
+		gap: 5px;
+		font-size: 10px;
+		/* width: 60px; */
+		align-items: center;
+		padding: 20px;
+		margin-bottom: 20px;
+		
+	}
+    nav div {
+		display: none;
+	}
+	nav li div {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		font-size: 10px;
+	}
+	nav{
+	    overflow-y: scroll;
+		width: auto;
+	
+	}
+}
+@media (1024px <= width < 1280px) {
+	.grid-container {
+		grid-template-columns:  1fr 1fr;
+        padding-left: 100px;
+	}
+
+	.tag_container {
+		padding-left: 100px;
+	}
+	nav li div {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+        font-size: 10px;
+	}
+	nav li {
+		flex-direction: column;
+		gap: 5px;
+		font-size: 10px;
+		width: 60px;
+		align-items: center;
+		padding: 15px;
+		margin-bottom: 15px;
+        
+	}
+	nav{
+	    overflow-y: scroll;
+		
+	
+	}
+
+}
+@media (1280px <= width) {
+	.grid-container {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+@media (1536px <= width) {
+	.grid-container {
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="burger"><img src="./images/burger.svg" /></div>
+                <div class="logo-img"><img src="./images/logo.svg" /></div>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="検索" />
+                <button class="search-button">
+                    <img src="./images/search.svg" />
+                    <div class="tooltip">検索</div>
+                </button>
+                <div class="mic">
+                    <img src="./images/mic.svg" alt="" />
+                    <div class="tooltip">音声で検索</div>
+                </div>
+            </div>
+    
+            <div class="profile">
+                <div class="video">
+                    <img src="./images/video.svg" />
+                    <div class="tooltip">作成</div>
+                </div>
+                <div class="bell">
+                    <img src="./images/bell.svg" />
+                    <div class="tooltip">通知</div>
+                </div>
+                <div class="avatar">
+                    <img src="./images/tom.jpeg" />
+                </div>
+            </div>
+        </header>
+        <!-- nav -->
+        <nav>
+            <ul>
+                <li>
+                    <img src="./images/home.svg" />
+                    <div class="tex"> ホーム</div>
+                   
+                </li>
+                <li>
+                    <img src="./images/short.svg" />
+                    <div class="tex">ショート</div>
+                </li>
+                <li>
+                    <img src="./images/subchanel.svg" />
+                    <div class="tex">登録チャンネル</div>
+                </li>
+                <li>
+                    <img src="./images/music.svg" />
+                    <div class="tex">YouTube Music</div>
+                </li>
+                <div class="line"></div>
+                <li class="secondary">
+                    <img src="./images/right-arrow.svg" />
+                    <div class="mypage">マイページ</div>
+                </li>
+
+                <li class="secondary">
+                    <img src="./images/looked.svg" />
+                    <div class="mypage">履歴</div>
+
+                </li>
+                <li class="secondary">
+                    <img src="./images/my-chanel.svg" /> 
+
+                    <div class="mypage">My Chanel</div>
+                </li>
+                <li class="secondary">
+                    <img src="./images/myvideo.svg" />
+
+                    <div class="mypage">My Video</div>
+
+                </li>
+                <li class="secondary">
+                    <img src="./images/download.svg" />
+
+                    <div class="mypage">オフライン</div>
+                </li>
+                <li class="secondary">
+                    <img src="./images/down-arrow.svg" />
+
+                    <div class="mypage">もっと見る</div>
+                </li>
+            </ul>
+        </nav>
+        <!-- end nav -->
+        <!--  -->
+
+        <!--  -->
+        <!-- main art -->
+        <main>
+            <!-- <div class="tag_container">
+                <div class="tag_list">
+                <div class="tag">音楽</div>
+                <div class="tag">野生生物</div>
+                <div class="tag">ミックス</div>
+                <div class="tag">ニュース</div>
+                <div class="tag">ライブ</div>
+                <div class="tag">ペット</div>
+                <div class="tag">最近アップロードされた動画</div>
+                <div class="tag">視聴済み</div>
+                <div class="tag">新しい動画の発見</div>
+                </div>
+            </div> -->
+            <div class="grid-container">
+                <div class="article">
+                  <div class="timestatus">
+                    <img src="./images/handstand.webp" />
+                    <div class="timescore">28:55</div>
+                  </div>
+                  <div class="description">
+                    <img src="./images/tom.jpeg" />
+                    <div class="text-description">
+                      <div class="title">
+                        【広告なし】有名曲Jpop メドレー 2024 🍀J-POP 最新曲ランキング 邦楽 2024 🍁 最も人気のある若者の音楽🍂音楽 ランキング 最新 2024 || 邦楽 ランキング 最新 2024
+                      </div>
+                      <div class="author">
+                        PIVOT 公式チャンネル
+                      </div>
+                      <div class="statistics">
+                        チャンネル登録者数 145万人
+                        <li class="times">1 年前</li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="article">
+                  <div class="timestatus">
+                    <img src="./images/handstand.webp" />
+                    <div class="timescore">28:55</div>
+                  </div>
+                  <div class="description">
+                    <img src="./images/tom.jpeg" />
+                    <div class="text-description">
+                      <div class="title">
+                        【広告なし】有名曲Jpop メドレー 2024 🍀J-POP 最新曲ランキング 邦楽 2024 🍁 最も人気のある若者の音楽🍂音楽 ランキング 最新 2024 || 邦楽 ランキング 最新 2024
+                      </div>
+                      <div class="author">
+                        PIVOT 公式チャンネル
+                      </div>
+                      <div class="statistics">
+                        チャンネル登録者数 145万人
+                        <li class="times">1 年前</li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="article">
+                  <div class="timestatus">
+                    <img src="./images/handstand.webp" />
+                    <div class="timescore">28:55</div>
+                  </div>
+                  <div class="description">
+                    <img src="./images/tom.jpeg" />
+                    <div class="text-description">
+                      <div class="title">
+                        【広告なし】有名曲Jpop メドレー 2024 🍀J-POP 最新曲ランキング 邦楽 2024 🍁 最も人気のある若者の音楽🍂音楽 ランキング 最新 2024 || 邦楽 ランキング 最新 2024
+                      </div>
+                      <div class="author">
+                        PIVOT 公式チャンネル
+                      </div>
+                      <div class="statistics">
+                        チャンネル登録者数 145万人
+                        <li class="times">1 年前</li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="article">
+                  <div class="timestatus">
+                    <img src="./images/handstand.webp" />
+                    <div class="timescore">28:55</div>
+                  </div>
+                  <div class="description">
+                    <img src="./images/tom.jpeg" />
+                    <div class="text-description">
+                      <div class="title">
+                        【広告なし】有名曲Jpop メドレー 2024 🍀J-POP 最新曲ランキング 邦楽 2024 🍁 最も人気のある若者の音楽🍂音楽 ランキング 最新 2024 || 邦楽 ランキング 最新 2024
+                      </div>
+                      <div class="author">
+                        PIVOT 公式チャンネル
+                      </div>
+                      <div class="statistics">
+                        チャンネル登録者数 145万人
+                        <li class="times">1 年前</li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="article">
+                  <div class="timestatus">
+                    <img src="./images/handstand.webp" />
+                    <div class="timescore">28:55</div>
+                  </div>
+                  <div class="description">
+                    <img src="./images/tom.jpeg" />
+                    <div class="text-description">
+                      <div class="title">
+                        【広告なし】有名曲Jpop メドレー 2024 🍀J-POP 最新曲ランキング 邦楽 2024 🍁 最も人気のある若者の音楽🍂音楽 ランキング 最新 2024 || 邦楽 ランキング 最新 2024
+                      </div>
+                      <div class="author">
+                        PIVOT 公式チャンネル
+                      </div>
+                      <div class="statistics">
+                        チャンネル登録者数 145万人
+                        <li class="times">1 年前</li>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+            </div>
+        </main>
+    </div>    
+</body>
 </html>
