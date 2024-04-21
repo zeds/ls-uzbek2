@@ -3,22 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            width: 200px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+        }
+
+        .display {
+            grid-column: span 4;
+            height: 50px;
+            background-color: #222;
+            color: #fff;
+            padding: 10px;
+            text-align: right;
+            border-radius: 5px;
+        }
+
+        .button {
+            height: 50px;
+            background-color: #555;
+            color: #fff;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button.zero {
+            grid-column: span 2;
+        }
+
+        .button.operator {
+            background-color: #f5923e;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello</h1>
-    <script>
-        const a = document.querySelector('h1')
-        a.innerText = 'Hello World'
-        a.style.color = 'red'
 
-        const b = document.createElement('p')
-        b.innerText = 'Hello World'
-        document.body.appendChild(b)
+<div class="calculator">
+    <div class="display">0</div>
+    <div class="button">AC</div>
+    <div class="button">±</div>
+    <div class="button">%</div>
+    <div class="button operator">÷</div>
+    <div class="button">7</div>
+    <div class="button">8</div>
+    <div class="button">9</div>
+    <div class="button operator">×</div>
+    <div class="button">4</div>
+    <div class="button">5</div>
+    <div class="button">6</div>
+    <div class="button operator">−</div>
+    <div class="button">1</div>
+    <div class="button">2</div>
+    <div class="button">3</div>
+    <div class="button operator">+</div>
+    <div class="button zero">0</div>
+    <div class="button">.</div>
+    <div class="button operator">=</div>
+</div>
 
-        const c = document.querySelector('.container')
-        c.style.backgroundColor = 'blue'
+<script>
+document.querySelectorAll('.button').forEach(button => {
+    button.addEventListener('click', function() {
+        const display = document.querySelector('.display');
+        const buttonValue = this.textContent;
+        const displayValue = display.textContent;
 
+        switch (buttonValue) {
+            case 'AC':
+                display.textContent = '0';
+                break;
+            case '±':
+                display.textContent = displayValue * -1;
+                break;
+            case '%':
+                display.textContent = displayValue / 100;
+                break;
+            case '÷':
+            case '×':
+            case '−':
+            case '+':
+                display.dataset.pendingVal = displayValue;
+                display.dataset.action = buttonValue;
+                display.textContent = '0';
+                break;
+            case '=':
+                const pendingVal = parseFloat(display.dataset.pendingVal);
+                const currentVal = parseFloat(displayValue);
+                let result;
 
-    </script>
+                switch (display.dataset.action) {
+                    case '÷':
+                        result = pendingVal / currentVal;
+                        break;
+                    case '×':
+                        result = pendingVal * currentVal;
+                        break;
+                    case '−':
+                        result = pendingVal - currentVal;
+                        break;
+                    case '+':
+                        result = pendingVal + currentVal;
+                        break;
+                }
+
+                display.textContent = result;
+                delete display.dataset.pendingVal;
+                delete display.dataset.action;
+                break;
+            default:
+                if (displayValue === '0') {
+                    display.textContent = buttonValue;
+                } else {
+                    display.textContent += buttonValue;
+                }
+                break;
+        }
+    });
+});
+
+window.addEventListener('keydown', function(e) {
+  const key = e.key;
+  let button;
+
+  function findButton(text) {
+    return Array.from(document.querySelectorAll('.button')).find(button => button.textContent === text);
+  }
+
+  if (key >= '0' && key <= '9') button = findButton(key);
+  else if (key === '+') button = findButton('+');
+  else if (key === '-') button = findButton('−');
+  else if (key === '*') button = findButton('×');
+  else if (key === '/') button = findButton('÷');
+  else if (key === '.') button = findButton('.');
+  else if (key === 'Enter') button = findButton('=');
+  else if (key === 'Escape') button = findButton('AC');
+
+  if (button) button.click();
+});
+</script>
 </body>
 </html>
