@@ -78,44 +78,72 @@ document.querySelectorAll('.button').forEach(button => {
         switch (buttonValue) {
             case 'AC':
                 display.textContent = '0';
+                delete display.dataset.pendingVal;
+                delete display.dataset.action;
                 break;
             case '±':
-                display.textContent = displayValue * -1;
+                display.textContent = (displayValue * -1).toString();
                 break;
             case '%':
-                display.textContent = displayValue / 100;
+                display.textContent = (displayValue / 100).toString();
                 break;
             case '÷':
             case '×':
             case '−':
             case '+':
-                display.dataset.pendingVal = displayValue;
-                display.dataset.action = buttonValue;
-                display.textContent = '0';
+                if (display.dataset.pendingVal && display.dataset.action) {
+                    let result;
+                    const pendingVal = parseFloat(display.dataset.pendingVal);
+                    const currentVal = parseFloat(displayValue);
+
+                    switch (display.dataset.action) {
+                        case '÷':
+                            result = pendingVal / currentVal;
+                            break;
+                        case '×':
+                            result = pendingVal * currentVal;
+                            break;
+                        case '−':
+                            result = pendingVal - currentVal;
+                            break;
+                        case '+':
+                            result = pendingVal + currentVal;
+                            break;
+                    }
+
+                    display.textContent = '0';
+                    display.dataset.pendingVal = result;
+                    display.dataset.action = buttonValue;
+                } else {
+                    display.dataset.pendingVal = displayValue;
+                    display.dataset.action = buttonValue;
+                    display.textContent = '0';
+                }
                 break;
             case '=':
-                const pendingVal = parseFloat(display.dataset.pendingVal);
-                const currentVal = parseFloat(displayValue);
-                let result;
+                if (display.dataset.pendingVal && display.dataset.action) {
+                    let result;
+                    const pendingVal = parseFloat(display.dataset.pendingVal);
+                    const currentVal = parseFloat(displayValue);
 
-                switch (display.dataset.action) {
-                    case '÷':
-                        result = pendingVal / currentVal;
-                        break;
-                    case '×':
-                        result = pendingVal * currentVal;
-                        break;
-                    case '−':
-                        result = pendingVal - currentVal;
-                        break;
-                    case '+':
-                        result = pendingVal + currentVal;
-                        break;
+                    switch (display.dataset.action) {
+                        case '÷':
+                            result = pendingVal / currentVal;
+                            break;
+                        case '×':
+                            result = pendingVal * currentVal;
+                            break;
+                        case '−':
+                            result = pendingVal - currentVal;
+                            break;
+                        case '+':
+                            result = pendingVal + currentVal;
+                            break;
+                    }
+
+                    display.textContent = result;
+                    display.dataset.pendingVal = result;
                 }
-
-                display.textContent = result;
-                delete display.dataset.pendingVal;
-                delete display.dataset.action;
                 break;
             default:
                 if (displayValue === '0') {
