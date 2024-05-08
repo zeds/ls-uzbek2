@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <div id="ans">
+
+  </div>
+
+
+  <script>
+    let ans = "ここに答え"
+    let arr = [
+      {name: "tom", country:"japan", age: 25},
+      {name: "Alex", country:"japan", age: 96},
+      {name: "Shuhratjon", country:"Uzbekistan", age:27},
+      {name: "Salohiddin", country:"Uzbekistan", age: 24},
+      {name: "thiep", country:"vietnam", age : 25},
+      {name: "Dido", country:"Uzbekistan", age: 18},
+      {name: "Temur", country:"Uzbekistan", age : 23},
+      {name:"Javlon", country: "Uzbekistan", age: 999 }
+    ]
+    
+    // temruさん、年齢が20以上、25以下の人
+    // Alexさん、Japan以外で、年齢が24以上の人
+// Javlonさん、countryがUzbekistanではない人をfilterしてください
+  // Shukuさん、Uzbekistanで、名前にdが入っている人
+  // Alexさん、Japan以外で、年齢が24以上の人
+  // Thiepくんは、uzbek以外で、名前にoが入っている人
+  // DiDoさん、countryがUzbekistanで、ageが18以上の人
+  // Salohiさん、年齢が24から27で、名前にsが入っていない人
+    
+    let output = ''
+
+    // 'an'
+    // arr.forEach((item, index) => {
+    //   if ( (item.indexOf('d') != -1)|| ){
+    //     console.log(item)
+    //   }
+    //   if ( item.length > 5){
+    //     console.log(item)
+    //   }
+    // })
+    
+    // Temurbek
+     ✅output = arr.filter((student) => student.age >= 20 && student.age <=25);
+        // output = arr.filter((item) => item.indexOf('an') != -1);
+        // output = arr.filter((word) => word.length > 5);
+    
+    //ALEX
+    //✅output = arr.filter((person => person.country !== 'japan' && person.age >=24)) 
+    
+    //Salohiさん、年齢が24から27で、名前にSが入っていない人
+    //✅output = arr.filter((person) => person.age >= 24 && person.age <=27 && person.name.indexOf('S') !== -1)
+
+
+
+     // Thiepくんは、uzbek以外で、名前にoが入っている人
+    // ✅output = arr.filter((student) => student.country != 'Uzbekistan' && student.name.indexOf('o') != -1)
+
+    // // DiDoさん、countryがUzbekistanで、ageが18以上の人
+    // output = arr.filter((person) => person.country != 'Uzbekistan' && person.age >=18)；
+
+     // Shukuさん、Uzbekistanで、名前にdが入っている人
+     // output = arr.filter((student) => student.country != 'Uzbekistan' && student.name.indexOf('d')!=-1);
+    // Javlonさん、countryがUzbekistanではない人をfilter　
+    //output = arr.filter(obj => obj.country !== "Uzbekistan");
+    
+    
+    document.getElementById("ans").innerHTML = JSON.stringify(output)
+
+  </script>
+
+
+
+</body>
+
+</html>
