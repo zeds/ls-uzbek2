@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猫</title>
+</head>
+<body>
+    <h1>猫と遊ぶ</h1>
+    <p id="neko">
+        猫は
+    </p>
+<script>
+    let ans = "ここに答え"
+    let arr = ['banana', 'melon', 'apple', 'orange', 'grape', 'kiwi', 'mango', 'peach']
+
+    let output = ''
+    // for ( let i = 0 ; i < arr.length ; i+=3 ){
+    //   // output += arr[i] + ' '
+    //   output = output + arr[i] + ' '
+    // }
+
+    arr.forEach((item, index) => {
+      // console.log("index=", index)
+      output = output + index +':' +  item + ' '// 0:nababa
+    })
+    document.getElementById("ans").innerHTML = output
+  </script>
+  </body>
+  </html>
+  output = arr.filter((item) => item.indexOf('an') != -1);
