@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .text-area {
+      width: 100%;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-bottom: 1px solid gray;
+    }
+
+    button {
+      padding: 8px 20px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button-comment {
+      cursor: pointer;
+    }
+
+    .button-post {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      justify-content: end;
+      padding: 10px;
+    }
+
+    .box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      background: pink;
+      position: relative;
+      min-height: 80px;
+      padding: 5px;
+    }
+
+    img {
+      width: 42px;
+      border-radius: 21px;
+    }
+
+    .action {
+      position: absolute;
+      right: 5px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .action button {
+      padding: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="root">
+
+    <!-- <div class="input-box">
+      <div><img src="./images/me.jpeg" alt="avatar" /></div>
+      <div class="text-area">
+        <input type="text" value="あいうえお" placeholder="コメントする..." />
+        <div class="button-post">
+          <button>キャンセル</button>
+          <button>コメント</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div><img src="./images/mohamed.jpeg" alt="avatar" /></div>
+      <div>
+        <div>@abdulahmoula7196</div>
+        <div>
+          Rachel, thanks for sharing
+        </div>
+      </div>
+      <div class="action">
+        <button>削除</button>
+        <button>編集</button>
+      </div>
+    </div>
+  </div> -->
+    <script>
+      let mode = "";  // "edit"
+      let editIndex = -1;  // 0以上の時は編集モード
+
+      let comments = [
+        {
+          avatar: "./images/mohamed.jpeg",
+          name: "@モハンマド",
+          comment: "1番目",
+        },
+        {
+          avatar: "./images/mohamed.jpeg",
+          name: "@モハンマド",
+          comment: "2番目",
+        },
+        {
+          avatar: "./images/mohamed.jpeg",
+          name: "@モハンマド",
+          comment: "3番目",
+        },
+      ];
+
+      // let root = document.getElementById("root");
+      let root = document.getElementsByClassName("container");
+
+      console.log("root=", root);
+      //input-box
+      let input_box = document.createElement("div");
+      input_box.className = "input-box";
+
+      let myFrame = document.createElement("div");
+      let avatar = document.createElement("img");
+      avatar.src = "./images/me.jpeg";
+      myFrame.appendChild(avatar);
+
+      let text_area = document.createElement("div");
+      text_area.className = "text-area";
+
+      let input_elem = document.createElement("input");
+      input_elem.placeholder = "コメントする...";
+
+      let button_post = document.createElement("div");
+      button_post.className = "button-post";
+
+      let button_cancel = document.createElement("button");
+      button_cancel.innerHTML = "キャンセル";
+      let button_comment = document.createElement("button");
+      button_comment.className = "button-comment";
+      button_comment.innerHTML = "コメント";
+
+      // コメント
+      button_comment.addEventListener("click", () => {
+        let obj = {
+          avatar: "./images/me.jpeg",
+          name: "tom",
+          comment: input_elem.value,
+        };
+        comments.unshift(obj);
+        clearComments();
+        showComments();
+      });
+
+      button_cancel.addEventListener("click", () => {
+        input_elem.value = ""
+      });
+
+
+      button_post.appendChild(button_cancel);
+      button_post.appendChild(button_comment);
+
+      text_area.appendChild(input_elem);
+      text_area.appendChild(button_post);
+
+      input_box.appendChild(myFrame);
+      input_box.appendChild(text_area);
+
+      root[0].appendChild(input_box);
+
+      function clearComments() {
+        let target = document.getElementsByClassName("box");
+        Array.from(target).forEach((item) => {
+          item.remove();
+        });
+
+        console.log("target=", target);
+      }
+
+      //box
+      function showComments() {
+        comments.map((item, index) => {
+          let box = document.createElement("div");
+          box.className = "box";
+
+          let avatarFrame = document.createElement("div");
+          let avatar2 = document.createElement("img");
+          avatar2.src = item.avatar;
+          avatarFrame.appendChild(avatar2);
+
+          let bFrame = document.createElement("div");
+
+          // 通常
+          let name = document.createElement("div");
+          name.innerHTML = item.name;
+
+
+          let text = document.createElement("div");
+          text.innerHTML = item.comment;
+
+          // 編集
+          let text2 = document.createElement("input");
+          text2.value = item.comment
+
+          bFrame.appendChild(name);
+
+          // 編集ボタンを保存ボタンにする
+          if (mode == "edit" && index == editIndex) {
+            bFrame.appendChild(text2);
+          } else {
+            bFrame.appendChild(text);
+          }
+
+          let actionFrame = document.createElement("div");
+          actionFrame.className = "action"
+
+          let deleteButton = document.createElement("button");
+          deleteButton.innerHTML = "削除";
+
+          deleteButton.addEventListener('click', () => {
+            //削除ボタンは、編集モードの時に、"キャンセル"
+            if (mode == "edit" && index == editIndex) {
+              // 編集モード
+              mode = ""
+              deleteButton.innerHTML = "削除";
+              editButton.innerHTML = "編集";
+            } else {
+              // 通常モード
+              comments.splice(index, 1)
+            }
+            clearComments()
+            showComments()
+          });
+          let editButton = document.createElement("button");
+
+          // mode=="edit"の時、保存にする
+          if (mode == "edit" && index == editIndex) {
+            deleteButton.innerHTML = "キャンセル";
+            editButton.innerHTML = "保存";
+          } else {
+            editButton.innerHTML = "編集";
+          }
+
+          editButton.addEventListener('click', () => {
+            if (mode == "edit" && index == editIndex) {
+              comments[index].comment = text2.value
+              mode = ""
+
+            } else {
+              console.log("aa", text2.value)
+              mode = "edit"
+              editIndex = index
+            }
+
+            clearComments()
+            showComments()
+          });
+
+
+
+          actionFrame.appendChild(deleteButton);
+          actionFrame.appendChild(editButton);
+
+          box.appendChild(avatarFrame);
+          box.appendChild(bFrame);
+          box.appendChild(actionFrame);
+
+
+          root[0].appendChild(box);
+        });
+      }
+      showComments();
+    </script>
+</body>
+
+</html>

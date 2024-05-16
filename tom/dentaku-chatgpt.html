@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Calculator App</title>
+		<style>
+			body {
+				font-family: "Arial", sans-serif;
+				background-color: #1c1c1c;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+			}
+			.calculator {
+				background-color: #333333;
+				border-radius: 10px;
+				padding: 20px;
+				width: 300px;
+			}
+			.calculator-display {
+				background-color: #000;
+				color: #fff;
+				padding: 10px;
+				margin-bottom: 20px;
+				text-align: right;
+				border-radius: 5px;
+			}
+			.calculator-keys {
+				display: grid;
+				grid-template-columns: repeat(4, 1fr);
+				gap: 10px;
+			}
+			.key {
+				background-color: #4d4d4d;
+				border: none;
+				padding: 15px;
+				border-radius: 5px;
+				color: white;
+				font-size: 1.5em;
+			}
+			.key.operator {
+				background-color: #ff9500;
+			}
+			.key.double {
+				grid-column: span 2;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="calculator">
+			<div class="calculator-display">0</div>
+			<div class="calculator-keys">
+				<button class="key" data-action="clear">AC</button>
+				<button class="key" data-action="toggle-sign">+/-</button>
+				<button class="key" data-action="percentage">%</button>
+				<button class="key operator" data-action="divide">÷</button>
+				<button class="key" data-number>7</button>
+				<button class="key" data-number>8</button>
+				<button class="key" data-number>9</button>
+				<button class="key operator" data-action="multiply">×</button>
+				<button class="key" data-number>4</button>
+				<button class="key" data-number>5</button>
+				<button class="key" data-number>6</button>
+				<button class="key operator" data-action="subtract">-</button>
+				<button class="key" data-number>1</button>
+				<button class="key" data-number>2</button>
+				<button class="key" data-number>3</button>
+				<button class="key operator" data-action="add">+</button>
+				<button class="key double" data-number>0</button>
+				<button class="key" data-action="decimal">.</button>
+				<button class="key operator" data-action="equals">=</button>
+			</div>
+		</div>
+		<script>
+			// Get references to the calculator display and keys
+			const display = document.querySelector(".calculator-display");
+			const keys = document.querySelector(".calculator-keys");
+
+			// Initialize calculator state
+			let currentInput = "0"; // Current input value
+			let previousInput = ""; // Previous input value
+			let operator = null; // Current operator
+			let shouldResetDisplay = false; // Flag to reset display on next input
+
+			// Function to update the display
+			function updateDisplay() {
+				display.textContent = currentInput;
+			}
+
+			// Function to handle number button clicks
+			function handleNumberClick(number) {
+				if (currentInput === "0" || shouldResetDisplay) {
+					currentInput = number;
+					shouldResetDisplay = false;
+				} else {
+					currentInput += number;
+				}
+				updateDisplay();
+			}
+
+			// Function to handle operator button clicks
+			function handleOperatorClick(op) {
+				console.log("op=", op);
+				if (operator && !shouldResetDisplay) {
+					// Perform calculation if an operator already exists
+					previousInput = currentInput;
+					currentInput = calculate(previousInput, currentInput, operator);
+					updateDisplay();
+				}
+				operator = op;
+				shouldResetDisplay = true;
+			}
+
+			// Function to perform calculations
+			function calculate(a, b, op) {
+				console.log("calculate", a, b);
+				a = parseFloat(a);
+				b = parseFloat(b);
+				switch (op) {
+					case "+":
+						return a + b;
+					case "-":
+						return a - b;
+					case "×":
+						return a * b;
+					case "÷":
+						return a / b;
+					default:
+						return b;
+				}
+			}
+
+			// Event listener for button clicks
+			keys.addEventListener("click", (e) => {
+				console.log("key=", e);
+				if (e.target.matches("button")) {
+					const key = e.target;
+					const action = key.dataset.action;
+					const keyContent = key.textContent;
+					console.log("action=", action);
+
+					if (!action) {
+						// Number button clicked
+						handleNumberClick(keyContent);
+					} else if (["multiply"].includes(action)) {
+						// Operator button clicked
+						handleOperatorClick(keyContent);
+					} else if (action === "clear") {
+						// Clear button clicked
+						currentInput = "0";
+						operator = null;
+						shouldResetDisplay = false;
+						updateDisplay();
+					} else if (action === "equals") {
+						// Equals button clicked
+						if (operator) {
+							currentInput = calculate(
+								previousInput,
+								currentInput,
+								operator
+							);
+							updateDisplay();
+							operator = null;
+						}
+					}
+				}
+			});
+
+			// Initialize display
+			updateDisplay();
+		</script>
+	</body>
+</html>

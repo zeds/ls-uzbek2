@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+
+		<style>
+			.wrapper {
+				width: fit-content;
+				border: 1px solid black;
+				border-radius: 5px;
+				background: black;
+				padding: 10px;
+			}
+
+			.dentaku {
+				display: grid;
+				grid-template-columns: 50px 50px 50px 50px;
+				grid-auto-rows: 50px;
+				gap: 4px;
+			}
+
+			.dentaku-last {
+				display: grid;
+				margin-top: 4px;
+				grid-template-columns: 104px 50px 50px;
+				grid-auto-rows: 50px;
+				justify-content: space-between;
+			}
+
+			.my-button {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: #eee;
+				border: 1px solid #ccc;
+				border-radius: 25px;
+			}
+
+			.orange {
+				background: orange;
+			}
+
+			.display {
+				color: #fff;
+				text-align: right;
+				border-radius: 5px;
+			}
+
+			.display input {
+				height: 30px;
+				background-color: #222;
+				padding: 10px;
+				color: #fff;
+				text-align: right;
+				border-radius: 5px;
+			}
+
+			.result {
+				color: white;
+				text-align: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<h3 class="result"></h3>
+			<div class="dentaku">
+				<div class="my-button btn_c">C</div>
+				<div class="my-button">±</div>
+				<div class="my-button btn_percent">%</div>
+				<div class="my-button orange wari">÷</div>
+				<div class="my-button btn_7 btn_number">7</div>
+				<div class="my-button btn_8 btn_number">8</div>
+				<div class="my-button btn_9 btn_number">9</div>
+				<div class="my-button orange umn">✖️</div>
+				<div class="my-button btn_4 btn_number">4</div>
+				<div class="my-button btn_5 btn_number">5</div>
+				<div class="my-button btn_6 btn_number">6</div>
+				<div class="my-button orange minus">➖</div>
+				<div class="my-button btn_1 btn_number">1</div>
+				<div class="my-button btn_2 btn_number">2</div>
+				<div class="my-button btn_3 btn_number">3</div>
+				<div class="my-button orange btn_plus">➕</div>
+			</div>
+			<div class="dentaku-last">
+				<div class="my-button zero btn_number">0</div>
+				<div class="my-button dot">.</div>
+				<div class="my-button orange btn_eq">=</div>
+			</div>
+		</div>
+
+		<script>
+			// x + y =
+			// x % y =
+			let x = "0";
+			let y = "0";
+			let type = ""; // "+" "-" "*" "/"
+			// = を押した時に、total = x  +  y
+			// switch(type){
+			//   case '+': total = x + y; break;
+			//   case '-': total = x - y; break;
+			//   case '*': total = x * y; break;
+			//   case '/': total = x / y; break;
+			// }
+
+			let result = document.querySelector(".result");
+			result.innerHTML = "0";
+			console.log("7 % 4 = ", 7 % 4); // 余り
+			console.log("13 % 2 = ", 13 % 2); // 余り
+
+			document.querySelector(".btn_c").addEventListener("click", () => {
+				result.innerHTML = "0";
+				x = "0";
+				y = "0";
+				type = "";
+			});
+
+			function displayDebug() {
+				console.log("x=", x);
+				console.log("type=", type);
+				console.log("y=", y);
+			}
+
+			document.querySelector(".btn_plus").addEventListener("click", () => {
+				type = "+";
+				displayDebug();
+			});
+			document.querySelector(".umn").addEventListener("click", () => {
+				type = "*";
+				displayDebug();
+			});
+			document.querySelector(".minus").addEventListener("click", () => {
+				type = "-";
+				displayDebug();
+			});
+			document.querySelector(".wari").addEventListener("click", () => {
+				type = "/";
+				displayDebug();
+			});
+			document
+				.querySelector(".btn_percent")
+				.addEventListener("click", () => {
+					type = "%";
+					x = Number(x) / 100;
+					result.innerHTML = x;
+					displayDebug();
+				});
+
+			document.querySelector(".btn_9").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "9";
+					} else {
+						x = x + "9";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "9";
+					} else {
+						y = y + "9";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_8").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "8";
+					} else {
+						x = x + "8";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "8";
+					} else {
+						y = y + "8";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_7").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "7";
+					} else {
+						x = x + "7";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "7";
+					} else {
+						y = y + "7";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_6").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "6";
+					} else {
+						x = x + "6";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "6";
+					} else {
+						y = y + "6";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_5").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "5";
+					} else {
+						x = x + "5";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "5";
+					} else {
+						y = y + "5";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_4").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "4";
+					} else {
+						x = x + "4";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "4";
+					} else {
+						y = y + "4";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_3").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "3";
+					} else {
+						x = x + "3";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "3";
+					} else {
+						y = y + "3";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_2").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "2";
+					} else {
+						x = x + "2";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "2";
+					} else {
+						y = y + "2";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".btn_1").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "1";
+					} else {
+						x = x + "1";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "1";
+					} else {
+						y = y + "1";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".zero").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "0";
+					} else {
+						x = x + "0";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "0";
+					} else {
+						y = y + "0";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".dot").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "0.";
+					} else {
+						x = x + "0.";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "0.";
+					} else {
+						y = y + "0.";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+
+			document.querySelector(".dot").addEventListener("click", () => {
+				if (type === "") {
+					if (x === "0") {
+						x = "0.";
+					} else {
+						x = x + "0.";
+					}
+					result.innerHTML = x;
+				} else {
+					if (y === "0") {
+						y = "0.";
+					} else {
+						y = y + "0.";
+					}
+					result.innerHTML = y;
+				}
+				displayDebug();
+			});
+			// 計算
+			document.querySelector(".btn_eq").addEventListener("click", () => {
+				let ans;
+
+				switch (type) {
+					case "+":
+						ans = Number(x) + Number(y);
+						break;
+					case "*":
+						ans = Number(x) * Number(y);
+						break;
+					case "/":
+						ans = Number(x) / Number(y);
+						break;
+					case "-":
+						ans = Number(x) - Number(y);
+						break;
+					case "%":
+						ans = (Number(x) / 100) * Number(y);
+						break;
+					default:
+						break;
+				}
+
+				result.innerHTML = ans;
+				x = ans;
+				y = "0";
+				type = "";
+			});
+		</script>
+	</body>
+</html>
