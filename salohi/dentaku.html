@@ -2,178 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .calculator {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 5px;
-            width: 160px;
-            padding: 20px;
-            background-color: bisque;
-            border-radius: 10px;
-        }
-
-        .display {
-            grid-column: span 4;
-            background-color: green;
-            color: #fff;
-            padding: 10px;
-            text-align: right;
-            border-radius: 5px;
-        }
-
-        .button {
-            height: 50px;
-            background-color: gray;
-            color: #fff;
-            border-radius: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .button.zero {
-            grid-column: span 2;
-        }
-
-        .button.operator {
-            background-color: red;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+    body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e0e3eb;
+    }
+    .container {
+        position: relative;
+        max-width: 300px;
+        width: 100%;
+        border-radius: 12px;
+        padding: 10px 20px 20px;
+        background: #fff;
+        box-shadow: 0 5px 10px rgba(0, 0, 0 , 0.05);
+    }
+    .display {
+        height: 80px;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 25px;
+        text-align: right;
+        border: none;
+        color: #000e1a;
+        outline: none;
+        pointer-events: none;
+    }
+    .buttons {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .buttons button {
+        padding: 10px;
+        border-radius: 6px;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        background-color: #eee;
+    }
+    .buttons button:active {
+        transform: scale(0.99);
+    }
+    .operator {
+        color: #2f9fff;
+    }
+</style>
 <body>
+    <div class="container">
+        <input type="text" class="display"/>
 
-<div class="calculator">
-    <div class="display">0</div>
-    <div class="button">AC</div>
-    <div class="button">±</div>
-    <div class="button">%</div>
-    <div class="button operator">÷</div>
-    <div class="button">7</div>
-    <div class="button">8</div>
-    <div class="button">9</div>
-    <div class="button operator">×</div>
-    <div class="button">4</div>
-    <div class="button">5</div>
-    <div class="button">6</div>
-    <div class="button operator">−</div>
-    <div class="button">1</div>
-    <div class="button">2</div>
-    <div class="button">3</div>
-    <div class="button operator">+</div>
-    <div class="button zero">0</div>
-    <div class="button">.</div>
-    <div class="button operator">=</div>
-</div>
+            <div class="buttons">
+                <button class="operator" date-value="AC">AC</button>
+                <button class="operator" date-value="DEL">DEL</button>
+                <button class="operator" date-value="%">%</button>
+                <button class="operator" date-value="/">/</button>
 
-<script>
-document.querySelectorAll('.button').forEach(button => {
-    button.addEventListener('click', function() {
-        const display = document.querySelector('.display');
-        const buttonValue = this.textContent;
-        const displayValue = display.textContent;
+                <button date-value="7">7</button>
+                <button date-value="8">8</button>
+                <button date-value="9">9</button>
+                <button class="operator" date-value="*">*</button>
 
-        switch (buttonValue) {
-            case 'AC':
-                display.textContent = '0';
-                delete display.dataset.pendingVal;
-                delete display.dataset.action;
-                break;
-            case '±':
-                display.textContent = (displayValue * -1).toString();
-                break;
-            case '%':
-                display.textContent = (displayValue / 100).toString();
-                break;
-            case '÷':
-            case '×':
-            case '−':
-            case '+':
-                if (display.dataset.pendingVal && display.dataset.action) {
-                    let result;
-                    const pendingVal = parseFloat(display.dataset.pendingVal);
-                    const currentVal = parseFloat(displayValue);
+                <button date-value="4">4</button>
+                <button date-value="5">5</button>
+                <button date-value="6">6</button>
+                <button class="operator" date-value="-">-</button>
 
-                    switch (display.dataset.action) {
-                        case '÷':
-                            result = pendingVal / currentVal;
-                            break;
-                        case '×':
-                            result = pendingVal * currentVal;
-                            break;
-                        case '−':
-                            result = pendingVal - currentVal;
-                            break;
-                        case '+':
-                            result = pendingVal + currentVal;
-                            break;
-                    }
+                <button date-value="1">1</button>
+                <button date-value="2">2</button>
+                <button date-value="3">3</button>
+                <button class="operator" date-value="+">+</button>
 
-                    display.textContent = '';
-                    display.dataset.pendingVal = result;
-                    display.dataset.action = buttonValue;
+                <button date-value="0">0</button>
+                <button date-value="00">00</button>
+                <button date-value=".">.</button>
+                <button class="operator" date-value="=">=</button>
+            </div>
+        </div>
+    <script>
+        const display = document.querySelector(".display");
+        const buttons = document.querySelectorAll("button");
+        const specialChars = ["%", "*", "/", "-", "+", "="];
+        let output = "";
+
+            const calculate = (btnValue) => {
+                if (btnValue === "=" && output !== "") {
+                    output = eval(output.replace("%", "/100"));
+                } else if (btnValue === "AC") {
+                    output = ""
+                } else if (btnValue === "DEL") {
+                    output = output.toString().slice(0, -1);
                 } else {
-                    display.dataset.pendingVal = displayValue;
-                    display.dataset.action = buttonValue;
-                    display.textContent = '';
+                    if (output === "" && specialChars.includes(btnValue)) return;
+                    output += btnValue;
                 }
-                break;
-            case '=':
-                if (display.dataset.pendingVal && display.dataset.action) {
-                    let result;
-                    const pendingVal = parseFloat(display.dataset.pendingVal);
-                    const currentVal = parseFloat(displayValue);
+                display.value = output;
+            };
 
-                    switch (display.dataset.action) {
-                        case '÷':
-                            result = pendingVal / currentVal;
-                            break;
-                        case '×':
-                            result = pendingVal * currentVal;
-                            break;
-                        case '−':
-                            result = pendingVal - currentVal;
-                            break;
-                        case '+':
-                            result = pendingVal + currentVal;
-                            break;
-                    }
-
-                    display.textContent = result;
-                    display.dataset.pendingVal = result;
-                }
-                break;
-            default:
-                if (displayValue === '0') {
-                    display.textContent = buttonValue;
-                } else {
-                    display.textContent += buttonValue;
-                }
-                break;
-        }
-    });
-});
-
-window.addEventListener('keydown', function(e) {
-	const key = e.key;
-	let button;
-
-	function findButton(text) {
-		return Array.from(document.querySelectorAll('.button')).find(button => button.textContent === text);
-	}
-
-	if (key >= '0' && key <= '9') button = findButton(key);
-	else if (key === '+') button = findButton('+');
-	else if (key === '-') button = findButton('−');
-	else if (key === '*') button = findButton('×');
-	else if (key === '/') button = findButton('÷');
-	else if (key === '.') button = findButton('.');
-	else if (key === 'Enter') button = findButton('=');
-	else if (key === 'Escape') button = findButton('AC');
-
-	if (button) button.click();
-});
-</script>
-</body>
+                buttons.forEach((button) => {
+                button.addEventListener("click", (e) => calculate(e.target.dataset.value));
+            });
+        </script>
+    </body>
 </html>
