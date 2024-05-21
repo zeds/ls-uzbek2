@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+
+	<body>
+		<div id="container">
+			<div class="item">item-1</div>
+			<div class="item">item-2</div>
+			<div class="item">item-3</div>
+		</div>
+
+		<button class="add">追加</button>
+		<button class="del">削除</button>
+
+		<script>
+			let container = document.getElementById("container");
+
+			// NodeList
+			// 静的なので、elementの追加が反映されない
+			let items_a = document.querySelectorAll(".item");
+			// let items_a = container.childNodes;
+			// console.log("childNodes=", items_a);
+
+			// HTMLCollection
+			// forEachが使えない
+			// 動的に、elementの追加が反映される
+			let items_b = document.getElementsByClassName("item");
+
+			document.querySelector(".add").addEventListener("click", () => {
+				let newElem = document.createElement("div");
+				newElem.innerHTML = "追加";
+				newElem.className = "item";
+
+				container.appendChild(newElem);
+				console.log("items_b length", items_b.length);
+				console.log("items_a length", items_a.length);
+			});
+			document.querySelector(".del").addEventListener("click", () => {
+				items_b[items_b.length - 1].remove();
+			});
+		</script>
+	</body>
+</html>
